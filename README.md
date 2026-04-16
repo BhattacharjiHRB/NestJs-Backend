@@ -6,11 +6,11 @@ Course Management Api design.
 
 API Routes
   #####
-  GET /course
+  GET /course  
   GET /course/:id
   POST /course
   PATCH /course/:id
   PUT  /course/:id 
   DELETE /course/:id 
-
+  #####
   
