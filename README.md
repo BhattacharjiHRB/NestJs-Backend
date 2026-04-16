@@ -12,5 +12,5 @@ Course Management Api design.
   PATCH /course/:id 
   PUT  /course/:id 
   DELETE /course/:id 
-  #####
+  
   ```
