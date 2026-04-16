@@ -5,12 +5,12 @@ Advance web Technology course
 Course Management Api design. 
 
 API Routes
+  ```
+  GET /course  <br />
+  GET /course/:id <br />
+  POST /course <br />
+  PATCH /course/:id <br />
+  PUT  /course/:id <br />
+  DELETE /course/:id <br />
   #####
-  GET /course  
-  GET /course/:id
-  POST /course
-  PATCH /course/:id
-  PUT  /course/:id 
-  DELETE /course/:id 
-  #####
-  
+  ```
