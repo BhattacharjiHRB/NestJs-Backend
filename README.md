@@ -6,7 +6,7 @@ Course Management Api design.
 
 ## API Routes
   ```
-  GET /course  <br />
+  GET /course  
   GET /course/:id 
   POST /course 
   PATCH /course/:id 
