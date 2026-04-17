@@ -1,0 +1,94 @@
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Patch,
+  Delete,
+  Param,
+  Body,
+  UseInterceptors,
+  UploadedFile,
+  BadRequestException,
+} from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
+import { CourseService } from './course.service';
+import { CreateCourseDto } from './dto/create-course.dto';
+import { UpdateCourseDto } from './dto/update-course.dto';
+
+@Controller('course')
+export class CourseController {
+  constructor(private readonly courseService: CourseService) {}
+
+  @Get()
+  getAllCourses() {
+    return this.courseService.getAllCourses();
+  }
+
+  @Get(':id')
+  getCourseById(@Param('id') id: string) {
+    return this.courseService.getCourseById(id);
+  }
+
+  @Post()
+  createCourse(@Body() dto: CreateCourseDto) {
+    return this.courseService.createCourse(dto);
+  }
+
+  @Put(':id')
+  updateCourse(@Param('id') id: string, @Body() dto: UpdateCourseDto) {
+    return this.courseService.updateCourse(id, dto);
+  }
+
+  @Patch(':id')
+  patchCourse(@Param('id') id: string, @Body() dto: UpdateCourseDto) {
+    return this.courseService.patchCourse(id, dto);
+  }
+
+  @Delete(':id')
+  deleteCourse(@Param('id') id: string) {
+    return this.courseService.deleteCourse(id);
+  }
+
+  @Post(':id/upload')
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: diskStorage({
+        destination: './src/uploads',
+        filename: (_req, file, cb) => {
+          const uniqueSuffix = Date.now();
+          const ext = extname(file.originalname);
+          cb(null, `${uniqueSuffix}-${file.originalname}`);
+        },
+      }),
+      fileFilter: (_req, file, cb) => {
+        const allowedExtensions = ['.jpg', '.jpeg', '.png', '.pdf'];
+        const ext = extname(file.originalname).toLowerCase();
+        if (!allowedExtensions.includes(ext)) {
+          return cb(
+            new BadRequestException(
+              `Invalid file type. Only .jpg, .jpeg, .png, .pdf are allowed.`,
+            ),
+            false,
+          );
+        }
+        cb(null, true);
+      },
+      limits: {
+        fileSize: 2 * 1024 * 1024, // 2MB
+      },
+    }),
+  )
+  uploadCourseMaterial(
+    @Param('id') id: string,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    if (!file) {
+      throw new BadRequestException('No file uploaded.');
+    }
+    return this.courseService.uploadCourseMaterial(id, file);
+  }
+}
+
