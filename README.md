@@ -1,7 +1,7 @@
 # NestJs-Backend
 Advance web Technology course AIUB
 
-# Lab-Task-1 
+## Lab-Task-1 
 Course Management Api design. 
 
 ## API ROUTES
@@ -17,7 +17,7 @@ Course Management Api design.
   ```
 
 
-# Lab-Task-2
+## Lab-Task-2
 Added DTO and pipes for validation and uploading features in the API
 
 ## API ROUTES
@@ -34,7 +34,7 @@ Added DTO and pipes for validation and uploading features in the API
   ```
 
 
-# Lab-Task-3
+## Lab-Task-3
 University Management API With Enrolllment, Course and Notification feature
 
 ## API ROUTES
@@ -52,4 +52,21 @@ University Management API With Enrolllment, Course and Notification feature
 ```
 
 
+## Lab-Task-4
+Product Inventoryt Management system
 
+## API ROUTES
+
+```
+
+ POST /products               
+ GET /products               
+ GET /products/:id           
+ GET /products/search        
+ GET /products/category/:cat 
+ PATCH /products/:id           
+ PUT /products/:id           
+ PATCH /products/:id/toggle    
+ DELETE /products/:id
+         
+```
